@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">XIV Relic Tracker</string>
+
+    <string name="loading_error">Unable to fetch quest data.  Please check your internet connection.\n\nError message: %1$s</string>
+
+    <string name="label_job_selection">Job Selection</string>
+    <string name="label_zodiac_weapon">Zodiac Weapon</string>
+
+    <string name="label_drop_arrow">Drop Arrow</string>
+</resources>

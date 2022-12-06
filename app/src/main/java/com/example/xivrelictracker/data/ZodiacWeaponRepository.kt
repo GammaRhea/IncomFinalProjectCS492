@@ -11,21 +11,24 @@ class ZodiacWeaponRepository (
 ) {
     private var currentQID: String? = null
     private var currentLang: String? = null
+    private var currentcol: String? = null
     private var cachedQuest: QuestObject? = null
 
     suspend fun loadQuestList(
         qID: String?,
         lang: String?,
+        columns: String?,
         apiKey: String
     ) : Result<QuestObject> {
-        return if (qID == currentQID && lang == currentLang && cachedQuest!= null) {
+        return if (qID == currentQID && lang == currentLang && columns == currentcol && cachedQuest!= null) {
             Result.success(cachedQuest!!)
         } else {
             currentQID = qID
             currentLang = lang
+            currentcol = columns
             withContext(ioDispatcher) {
                 try {
-                    val questList = service.loadQuestList(qID, lang, apiKey)
+                    val questList = service.loadQuestList(qID, lang, columns, apiKey)
                     cachedQuest = questList
                     Result.success(questList)
                 } catch (e: Exception) {

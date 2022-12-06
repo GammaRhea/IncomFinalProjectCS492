@@ -13,22 +13,22 @@ data class QuToDo(val text: String, var completion: Boolean) : Serializable
 
 //Data classes to represent structure
 data class XIVApiListJson(
-    val name: String,
-    val textData: XIVAPIListText
+    val Name: String,
+    val TextData: XIVAPIListText
 )
 
 data class XIVAPIListText(
-    val toDo: XIVApiListToDos
+    val ToDo: List<XIVApiListToDos>
 )
 
 data class XIVApiListToDos(
-    val questText: String
+    val Text: String
 )
 
 class XIVApiJsonAdapter {
     @FromJson
     fun questObjectFromJson(list: XIVApiListJson) = QuestObject(
-        name = list.name,
-        firstToDo = list.textData.toDo.questText
+        name = list.Name,
+        firstToDo = list.TextData.ToDo[0].Text
     )
 }

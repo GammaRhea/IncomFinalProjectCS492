@@ -28,7 +28,9 @@ class JobSelectionFragment : Fragment(R.layout.job_selection) {
         jobListRV.adapter = jobAdapter
 
         //var testList: List<JobObject> = List<JobObject>(JobObject(name = "Test", jobID = "test"))
-        val testList = listOf<JobObject>(JobObject(name = "Warrior", jobID = "war"), JobObject(name = "Paladin", jobID = "pld"), JobObject(name = "Monk", jobID = "mnk"))
+        val testList = listOf<JobObject>(JobObject(name = "Warrior", jobID = "war", 0),
+                                         JobObject(name = "Paladin", jobID = "pld", 1),
+                                         JobObject(name = "Monk", jobID = "mnk", 2))
 
         jobAdapter.updateJobList(testList)
     }

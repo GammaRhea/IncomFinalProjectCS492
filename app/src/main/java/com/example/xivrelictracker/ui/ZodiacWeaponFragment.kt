@@ -4,6 +4,7 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -44,18 +45,21 @@ class ZodiacWeaponFragment : Fragment(R.layout.zodiac_weapon) {
         dropDownListRV.setHasFixedSize(true)
         dropDownListRV.adapter = dropDownAdapter
 
+        viewModel.questList.observe(viewLifecycleOwner) { quest ->
+            if (quest != null) {
+                val questList = listOf<QuestObject>(quest)
+                dropDownAdapter.updateQuestList(questList)
+                dropDownListRV.visibility = View.VISIBLE
+                dropDownListRV.scrollToPosition(0)
+            }
+        }
+
         viewModel.error.observe(viewLifecycleOwner) { error ->
             if (error != null) {
                 loadingErrorTV.text = getString(R.string.loading_error, error.message)
                 loadingErrorTV.visibility = View.VISIBLE
             }
         }
-
-        val logging = HttpLoggingInterceptor()
-        val httpClient = OkHttpClient.Builder()
-        httpClient.addInterceptor(logging)
-
-        logging.setLevel(HttpLoggingInterceptor.Level.BASIC)
     }
 
     override fun onDestroyView() {
@@ -65,11 +69,13 @@ class ZodiacWeaponFragment : Fragment(R.layout.zodiac_weapon) {
 
     override fun onResume() {
         super.onResume()
+        val questId = 66655 + args.job.relicOffset
 
-        viewModel.loadQuestList("66655", "en", XIVAPI_APPID)
+        viewModel.loadQuestList(questId.toString(), "en", "Name,TextData.ToDo", XIVAPI_APPID)
     }
 
     private fun onDropDownItemClick(questObject: QuestObject) {
         Log.d("ZodiacWeaponFragment", questObject.name)
+
     }
 }

@@ -5,8 +5,8 @@ import java.io.Serializable
 
 data class QuestObject(
     val name: String,
-    //val toDos: List<QuToDo>
-    val firstToDo: String
+    val firstToDo: String,
+    val toDos: List<XIVApiListToDos>
 ) : Serializable
 
 data class QuToDo(val text: String, var completion: Boolean) : Serializable
@@ -29,6 +29,7 @@ class XIVApiJsonAdapter {
     @FromJson
     fun questObjectFromJson(list: XIVApiListJson) = QuestObject(
         name = list.Name,
-        firstToDo = list.TextData.ToDo[0].Text
+        firstToDo = list.TextData.ToDo[0].Text,
+        toDos = list.TextData.ToDo
     )
 }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.xivrelictracker.R
 import com.example.xivrelictracker.data.QuestObject
 import androidx.fragment.app.viewModels
+import com.example.xivrelictracker.data.XIVApiListToDos
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -37,6 +38,7 @@ class ZodiacWeaponFragment : Fragment(R.layout.zodiac_weapon) {
         mediaPlayer.start()
 
         dropDownListRV = view.findViewById(R.id.rv_parent_items)
+
         loadingErrorTV = view.findViewById(R.id.tv_loading_error)
 
         dropDownAdapter = DropDownAdapter(::onDropDownItemClick)
@@ -76,6 +78,5 @@ class ZodiacWeaponFragment : Fragment(R.layout.zodiac_weapon) {
 
     private fun onDropDownItemClick(questObject: QuestObject) {
         Log.d("ZodiacWeaponFragment", questObject.name)
-
     }
 }

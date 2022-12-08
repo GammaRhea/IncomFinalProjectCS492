@@ -32,11 +32,11 @@ class ChildItemAdapter : RecyclerView.Adapter<ChildItemAdapter.ViewHolder>() {
         private val checkBox: CheckBox = itemView.findViewById(R.id.child_todo_checkbox)
         private val toDoTV: TextView = itemView.findViewById(R.id.tv_child_todo_text)
 
-//        init {
-//            checkBox.setOnCheckedChangeListener { button, isChecked ->
-//                toDos[absoluteAdapterPosition].completed = isChecked
-//            }
-//        }
+        init {
+            checkBox.setOnCheckedChangeListener { button, isChecked ->
+
+            }
+        }
 
         fun bind(toDo: String) {
             toDoTV.text = toDo

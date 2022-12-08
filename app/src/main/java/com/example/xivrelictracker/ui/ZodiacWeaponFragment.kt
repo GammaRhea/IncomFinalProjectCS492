@@ -14,6 +14,7 @@ import com.example.xivrelictracker.R
 import com.example.xivrelictracker.data.QuestObject
 import androidx.fragment.app.viewModels
 import com.example.xivrelictracker.data.XIVApiListToDos
+import kotlinx.coroutines.*
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -49,18 +50,29 @@ class ZodiacWeaponFragment : Fragment(R.layout.zodiac_weapon) {
 
         viewModel.questList.observe(viewLifecycleOwner) { quest ->
             if (quest != null) {
-                val questList = listOf<QuestObject>(quest)
-                dropDownAdapter.updateQuestList(questList)
+                dropDownAdapter.addQuestToList(quest)
                 dropDownListRV.visibility = View.VISIBLE
                 dropDownListRV.scrollToPosition(0)
             }
         }
+
+        //can run multiple observes here, but seems like it already picks up on the other quests
 
         viewModel.error.observe(viewLifecycleOwner) { error ->
             if (error != null) {
                 loadingErrorTV.text = getString(R.string.loading_error, error.message)
                 loadingErrorTV.visibility = View.VISIBLE
             }
+        }
+
+        val questId = 66655 + args.job.relicOffset
+        val qIDList = listOf<Int>(questId, 66971, 66972)
+
+        for (element in qIDList) {
+            viewModel.loadQuestList(element.toString(), "en", "Name,TextData.ToDo", XIVAPI_APPID)
+            //this line is bad practice, I apologize, but longer list quests aren't finishing fast enough which was adding them out of order and I wasn't sure what to do
+            runBlocking { delay(750L) }
+            Log.d("Zodiac Weapon Fragment", element.toString())
         }
     }
 
@@ -69,14 +81,8 @@ class ZodiacWeaponFragment : Fragment(R.layout.zodiac_weapon) {
         mediaPlayer.release()
     }
 
-    override fun onResume() {
-        super.onResume()
-        val questId = 66655 + args.job.relicOffset
-
-        viewModel.loadQuestList(questId.toString(), "en", "Name,TextData.ToDo", XIVAPI_APPID)
-    }
-
     private fun onDropDownItemClick(questObject: QuestObject) {
         Log.d("ZodiacWeaponFragment", questObject.name)
     }
+
 }

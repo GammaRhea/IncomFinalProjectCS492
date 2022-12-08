@@ -10,10 +10,20 @@ import com.example.xivrelictracker.R
 import com.example.xivrelictracker.data.QuestObject
 
 class DropDownAdapter(private val onClick: (QuestObject) -> Unit) : RecyclerView.Adapter<DropDownAdapter.ViewHolder>() {
-    var quests: List<QuestObject> = listOf()
+    var quests: MutableList<QuestObject> = mutableListOf()
 
-    fun updateQuestList(newQuestList: List<QuestObject>) {
-        quests = newQuestList ?: listOf()
+    fun updateQuestList(newQuestList: MutableList<QuestObject>) {
+        quests = newQuestList ?: mutableListOf()
+        notifyDataSetChanged()
+    }
+
+    fun addQuestToList(quest: QuestObject, position: Int = 0) {
+//        if (quests.size > 1) {
+//            for (x in quests) {
+//                if (quest.name == x.name) { break }
+//            }
+//        }
+        this.quests.add(quest)
         notifyDataSetChanged()
     }
 
@@ -51,7 +61,7 @@ class DropDownAdapter(private val onClick: (QuestObject) -> Unit) : RecyclerView
 
         fun bind(questObject: QuestObject) {
             questNameTV.text = questObject.name
-            childAdapter.updateToDosList(listOf(questObject.firstToDo))
+            childAdapter.updateToDosList(questObject.toDos)
         }
     }
 }

@@ -9,6 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.xivrelictracker.R
 import com.example.xivrelictracker.data.JobObject
 import android.media.MediaPlayer
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.widget.Button
 import androidx.navigation.fragment.findNavController
 
 class JobSelectionFragment : Fragment(R.layout.job_selection) {
@@ -33,6 +37,12 @@ class JobSelectionFragment : Fragment(R.layout.job_selection) {
                                          JobObject(name = "Monk", jobID = "mnk", 2))
 
         jobAdapter.updateJobList(testList)
+
+        val settingsButton: Button = view.findViewById(R.id.btn_settings)
+        settingsButton.setOnClickListener {
+            val directions = JobSelectionFragmentDirections.navigateToSettings()
+            findNavController().navigate(directions)
+        }
     }
 
     private fun onJobItemClick(jobObject: JobObject) {

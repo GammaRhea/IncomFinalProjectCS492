@@ -19,7 +19,7 @@ interface XIVApiService {
     @GET("quest/{qID}")
     suspend fun loadQuestList(
         @Path("qID") questID: String?,
-        @Query("lang") language: String?,
+        @Query("language") language: String?,
         @Query("columns") narrow: String?,
         @Query("private_key") apiKey: String
     ) : QuestObject

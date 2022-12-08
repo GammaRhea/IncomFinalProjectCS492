@@ -18,11 +18,6 @@ class DropDownAdapter(private val onClick: (QuestObject) -> Unit) : RecyclerView
     }
 
     fun addQuestToList(quest: QuestObject, position: Int = 0) {
-//        if (quests.size > 1) {
-//            for (x in quests) {
-//                if (quest.name == x.name) { break }
-//            }
-//        }
         this.quests.add(quest)
         notifyDataSetChanged()
     }
@@ -54,6 +49,7 @@ class DropDownAdapter(private val onClick: (QuestObject) -> Unit) : RecyclerView
             itemView.setOnClickListener {
                 currentQuest?.let(onClick)
             }
+
             childRV.layoutManager = LinearLayoutManager(ctx)
             childRV.setHasFixedSize(true)
             childRV.adapter = childAdapter

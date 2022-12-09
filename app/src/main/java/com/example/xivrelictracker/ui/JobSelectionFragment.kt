@@ -16,12 +16,21 @@ import android.widget.Button
 import androidx.navigation.fragment.findNavController
 
 class JobSelectionFragment : Fragment(R.layout.job_selection) {
-    //private val viewModel:
+    private lateinit var mediaPlayer: MediaPlayer
     private lateinit var jobAdapter: JobAdapter
     private lateinit var jobListRV: RecyclerView
 
+    private var firstBoot: Boolean = true
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (firstBoot) {
+            mediaPlayer = MediaPlayer.create(activity, R.raw.ffxiv_quest_accepted)
+            mediaPlayer.start()
+
+            firstBoot = false
+        }
 
         jobListRV = view.findViewById(R.id.rv_job_selection)
 
@@ -43,6 +52,11 @@ class JobSelectionFragment : Fragment(R.layout.job_selection) {
             val directions = JobSelectionFragmentDirections.navigateToSettings()
             findNavController().navigate(directions)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mediaPlayer.release()
     }
 
     private fun onJobItemClick(jobObject: JobObject) {

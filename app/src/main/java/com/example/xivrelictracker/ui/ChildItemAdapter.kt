@@ -1,5 +1,6 @@
 package com.example.xivrelictracker.ui
 
+import android.media.MediaPlayer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,9 +34,7 @@ class ChildItemAdapter : RecyclerView.Adapter<ChildItemAdapter.ViewHolder>() {
         private val toDoTV: TextView = itemView.findViewById(R.id.tv_child_todo_text)
 
         init {
-            checkBox.setOnCheckedChangeListener { button, isChecked ->
 
-            }
         }
 
         fun bind(toDo: String) {

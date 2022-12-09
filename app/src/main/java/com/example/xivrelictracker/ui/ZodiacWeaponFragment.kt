@@ -76,7 +76,7 @@ class ZodiacWeaponFragment : Fragment(R.layout.zodiac_weapon) {
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         val questId = 66655 + args.job.relicOffset
-        val qIDList = listOf<Int>(questId, 66971, 66972)
+        val qIDList = listOf<Int>(questId, 66998, 66096)
 
         for (element in qIDList) {
             viewModel.loadQuestList(element.toString(), sharedPrefs.getString(getString(R.string.pref_lang_key), "en"), "Name,TextData.ToDo", XIVAPI_APPID)

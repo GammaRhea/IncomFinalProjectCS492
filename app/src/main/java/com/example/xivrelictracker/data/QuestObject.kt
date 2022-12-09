@@ -2,6 +2,7 @@ package com.example.xivrelictracker.data
 
 import com.squareup.moshi.FromJson
 import java.io.Serializable
+import com.example.xivrelictracker.data.ToDo
 
 data class QuestObject(
     val name: String,
@@ -9,7 +10,7 @@ data class QuestObject(
     val toDos: List<String>
 ) : Serializable
 
-data class QuToDo(val text: String, var completion: Boolean) : Serializable
+val falList = listOf<Boolean>(false)
 
 //Data classes to represent structure
 data class XIVApiListJson(
